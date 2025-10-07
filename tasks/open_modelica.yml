@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT-0
+---
+- name: Create Temporary OMShell Script
+  ansible.builtin.blockinfile:
+    create: true
+    marker: "// --- {mark} ANSIBLE MANAGED BLOCK ---"
+    block: |
+      updatePackageIndex();
+      getErrorString();
+
+      if not installPackage({{ item.name }}, "{{ item.version }}", exactMatch=true) then
+        print("Failed to install {{ item.name }} {{ item.version }}");
+        print(getErrorString());
+        exit(1);
+      else
+        print("Installed {{ item.name }} {{ item.version }}");
+      end if;
+    dest: /tmp/om_package_{{ item.name | replace(' ', '_') | lower }}.mos
+    mode: "0644"
+  loop: "{{ openmodelica_packages }}"
+- name: Install Packages
+  ansible.builtin.command:
+    cmd: "omc /tmp/om_package_{{ item.name | replace(' ', '_') | lower }}.mos"
+  loop: "{{ openmodelica_packages }}"
+  register: package_results
+  changed_when: true

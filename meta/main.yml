@@ -1,0 +1,10 @@
+#SPDX-License-Identifier: MIT-0
+galaxy_info:
+  author: Kristian Zarebski
+  description: Installs OpenModelica on the system
+  license: MIT
+  min_ansible_version: "2.1"
+  galaxy_tags: [
+    "openmodelica"
+  ]
+dependencies: []

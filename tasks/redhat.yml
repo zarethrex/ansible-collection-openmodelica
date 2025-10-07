@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: MIT-0
+---
+- name: Install EPEL Release
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+- name: Enable CRB
+  community.general.dnf_config_manager:
+    name: crb
+    state: enabled
+- name: Update DNF Configuration
+  vars:
+    distro_label: >
+      {{
+          'fc' + ansible_distribution_major_version
+          if ansible_distribution == 'Fedora'
+          else 'el' + ansible_distribution_major_version
+      }}
+    base_url: "https://build.openmodelica.org/rpm/{{ distro_label }}/omc.repo"
+  ansible.builtin.command:
+    cmd: "dnf config-manager --add-repo {{ base_url }}"
+    creates: "/etc/yum.repos.d/build.openmodelica.org_rpm_{{ distro_label }}.repo"
+- name: Install OpenModelica
+  ansible.builtin.dnf:
+    name: openmodelica-nightly
+    state: present
+  register: install_om_full
