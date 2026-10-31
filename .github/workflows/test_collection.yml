@@ -1,4 +1,4 @@
-name: Test Ansible Plugins
+name: Test Ansible Collection
 on:
   push:
     branches:
@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Test zarethrex.openmodelica
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
       - name: Install Podman
         uses: redhat-actions/podman-install@v1
       - name: Setup UV
