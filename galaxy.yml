@@ -1,0 +1,10 @@
+---
+namespace: zarethrex
+name: openmodelica
+readme: README.md
+description: Install and manage OpenModelica
+version: 0.1.0
+authors:
+  - Kristian Zarebski
+license:
+  - GPL-3.0-or-later

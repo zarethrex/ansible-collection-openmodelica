@@ -1,0 +1,15 @@
+---
+- name: Manual Library Install
+  hosts: openmodelica_nodes
+  become: false
+  tasks:
+    - name: Ensure libraries directory exists
+      ansible.builtin.file:
+        state: directory
+        path: /root/.openmodelica/libraries
+        mode: "0755"
+    - name: Download the HanserModelica library
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: https://github.com/christiankral/HanserModelica/archive/refs/tags/v2.0.1.tar.gz
+        dest: /root/.openmodelica/libraries/

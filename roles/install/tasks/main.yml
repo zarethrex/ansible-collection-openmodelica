@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: MIT-0
+---
+- name: Run OpenModelica Installation
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_os_family | lower }}.yml"

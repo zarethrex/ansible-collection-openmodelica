@@ -1,0 +1,29 @@
+---
+driver:
+  name: podman
+platforms:
+  - name: centos-stream-10
+    groups:
+      - openmodelica_nodes
+    image: quay.io/centos/centos:stream10-development
+    privileged: true
+    command:
+      - /usr/sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+provisioner:
+  name: ansible
+  inventory:
+    centos-stream-10:
+      ansible_connection: containers.podman.podman
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - syntax
+    - destroy

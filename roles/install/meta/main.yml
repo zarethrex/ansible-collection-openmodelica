@@ -1,0 +1,10 @@
+#SPDX-License-Identifier: MIT-0
+galaxy_info:
+  author: Kristian Zarebski
+  namespace: zarethrex
+  role_name: openmodelica
+  description: Installs OpenModelica on the system
+  license: GPL-3.0-or-later
+  min_ansible_version: "2.1"
+  galaxy_tags: ["openmodelica"]
+dependencies: []

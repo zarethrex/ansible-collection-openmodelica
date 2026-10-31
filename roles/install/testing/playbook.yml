@@ -1,0 +1,12 @@
+---
+- name: Install OpenModelica
+  gather_facts: true
+  become: true
+  hosts: all
+  vars:
+    openmodelica_install_graphical_clients: false
+    openmodelica_packages:
+      - name: Modelica
+        version: "4.0.0"
+  roles:
+    - zarethrex.openmodelica

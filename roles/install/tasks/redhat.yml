@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT-0
+---
+- name: Check Arguments
+  loop:
+    - var: openmodelica_install_graphical_clients
+      value: "{{ openmodelica_install_graphical_clients | default(true) }}"
+      expected: true
+    - var: openmodelica_install_cpp_runtime
+      value: "{{ openmodelica_install_cpp_runtime | default(false) }}"
+      expected: false
+  ansible.builtin.assert:
+    that: item.value == item.expected
+    fail_msg: "Option '{{ item.var }}' not available for RHEL based installations."
+- name: Install EPEL Release
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+- name: Enable CRB
+  community.general.dnf_config_manager:
+    name: crb
+    state: enabled
+- name: Update DNF Configuration
+  vars:
+    distro_label: >-
+      {{
+        'fc' + ansible_facts.distribution_major_version
+        if ansible_facts.distribution == 'Fedora'
+        else 'el' + ansible_facts.distribution_major_version
+      }}
+    repo_url: "https://build.openmodelica.org/rpm/{{ distro_label }}/omc.repo"
+    repo_file: "/etc/yum.repos.d/build.openmodelica.org_rpm_{{ distro_label }}.repo"
+  ansible.builtin.get_url:
+    url: "{{ repo_url }}"
+    dest: "{{ repo_file }}"
+    mode: "0644"
+    force: true
+- name: Install OpenModelica
+  ansible.builtin.dnf:
+    name: openmodelica-nightly
+    state: present
+    disable_gpg_check: true
+  register: install_om_full
