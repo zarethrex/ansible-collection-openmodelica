@@ -10,7 +10,14 @@ concurrency:
 jobs:
   test_collection:
     runs-on: ubuntu-latest
-    name: Test zarethrex.openmodelica
+    strategy:
+      matrix:
+        system:
+          - platform: debian-trixie
+            label: Debian
+          - platform: centos-10-stream
+            label: RHEL
+    name: Test zarethrex.openmodelica (${{ matrix.system.label }})
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
@@ -25,4 +32,4 @@ jobs:
           uv venv
           uv pip install -r requirements.txt
       - name: Test Collection with Molecule
-        run: uv run molecule test
+        run: uv run molecule test -- --limit ${{ matrix.system.platform }}

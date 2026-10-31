@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT-0
+# SPDX-License-Identifier: GPLv3-or-later
 ---
 - name: Install Pre-requisites
   ansible.builtin.apt:
@@ -6,6 +6,7 @@
       - ca-certificates
       - curl
       - gnupg
+      - python3-debian
     state: present
     update_cache: true
 - name: Retrieve OpenModelica GPG Key
@@ -17,36 +18,15 @@
   ansible.builtin.command:
     cmd: "gpg --dearmor -o {{ openmodelica_gpg_key_file }} /tmp/openmodelica.asc"
     creates: "{{ openmodelica_gpg_key_file }}"
-- name: Update APT Sources
-  block:
-    - name: Determine if APT supports DEB822 (APT >= 2.4)
-      ansible.builtin.command:
-        cmd: apt --version
-      register: apt_version_cmd
-      changed_when: false
-    - name: Read APT Version
-      ansible.builtin.set_fact:
-        apt_version: "{{ apt_version_cmd.stdout | regex_search('[0-9]+\\.[0-9]+\\.[0-9]+') }}"
-    - name: Add OpenModelica Repository (DEB822)
-      when: apt_version is ansible.builtin.version('2.4', '>=')
-      ansible.builtin.copy:
-        content: |
-          Types: deb
-          URIs: {{ openmodelica_repo_url }}
-          Suites: {{ ansible_lsb.codename | default('stable') }}
-          Components: stable
-          Signed-By: {{ openmodelica_gpg_key_file }}
-          Architectures: amd64
-        dest: /etc/apt/sources.list.d/openmodelica.sources
-        mode: "0644"
-    - name: Add OpenModelica Repository (Legacy)
-      when: apt_version is not ansible.builtin.version('2.4', '>=')
-      ansible.builtin.apt_repository:
-        repo: >
-          deb [arch=amd64 signed-by={{ openmodelica_gpg_key_file }}]
-          {{ openmodelica_repo_url }} {{ ansible_lsb.codename | default('stable') }} stable
-        filename: openmodelica
-        state: present
+- name: Add OpenModelica Repository
+  ansible.builtin.deb822_repository:
+    name: openmodelica
+    types: [deb]
+    uris: "https://build.openmodelica.org/apt"
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: [stable]
+    signed_by: "https://build.openmodelica.org/apt/openmodelica.asc"
+    state: present
 - name: Install OpenModelica
   block:
     - name: Install OMC Only

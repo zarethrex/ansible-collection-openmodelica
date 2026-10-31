@@ -1,4 +1,4 @@
-#SPDX-License-Identifier: MIT-0
+#SPDX-License-Identifier: GPLv3-or-later
 ---
 openmodelica_install_graphical_clients: true
 openmodelica_install_cpp_runtime: false
