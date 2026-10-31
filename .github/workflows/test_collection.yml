@@ -16,7 +16,7 @@ jobs:
         system:
           - platform: debian-trixie
             label: Debian
-          - platform: centos-10-stream
+          - platform: centos-stream-10
             label: RHEL
     name: Test zarethrex.openmodelica (${{ matrix.system.label }})
     steps:
