@@ -33,4 +33,4 @@ jobs:
           uv venv
           uv pip install -r requirements.txt
       - name: Test Collection with Molecule
-        run: uv run molecule test -- --limit ${{ matrix.system.platform }}
+        run: uv run molecule test -- --limit localhost:${{ matrix.system.platform }}
