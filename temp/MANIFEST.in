@@ -1,0 +1,15 @@
+build_ignore:
+  - .venv
+  - venv
+  - .tox
+  - .git
+  - .github
+  - .cache
+  - extensions
+  - '*.pyc'
+  - __pycache__
+  - .pytest_cache
+  - .mypy_cache
+  - .vault-password*
+  - '*.log'
+  - .DS_Store
