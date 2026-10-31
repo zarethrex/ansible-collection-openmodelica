@@ -1,0 +1,26 @@
+name: Test Ansible Plugins
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test_collection:
+    runs-on: ubuntu-latest
+    name: Test zarethrex.openmodelica
+    steps:
+      - name: Install Podman
+        uses: redhat-actions/podman-install@v1
+      - name: Setup UV
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
+        with:
+          python-version: "3.14"
+      - name: Install Ansible
+        run: |
+          uv venv
+          uv pip install -r requirements.txt
+      - name: Test Collection with Molecule
+        run: uv run molecule test
