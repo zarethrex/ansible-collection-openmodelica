@@ -1,8 +1,8 @@
 # zarethrex.openmodelica
 
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-zarethrex.openmodelica-blue?logo=ansible)](https://galaxy.ansible.com/ui/repo/published/zarethrex/openmodelica/)
-[![License](https://img.shields.io/badge/license-{license}-blue)](LICENSE)
-[![Ansible Core](https://img.shields.io/badge/ansible--core-%3E%3D{min_ansible_version}-27a1e4?logo=ansible)](https://docs.ansible.com/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3%2B-blue)](LICENSE)
+[![Ansible Core](https://img.shields.io/badge/ansible--core-%3E%3D2.21-27a1e4?logo=ansible)](https://docs.ansible.com/)
 
 An Ansible collection for installing [OpenModelica](https://openmodelica.org) and managing its
 Modelica libraries. The collection provides a role that configures the official OSMC package
