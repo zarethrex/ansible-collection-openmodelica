@@ -25,9 +25,11 @@ jobs:
       matrix:
         system:
           - platform: debian-trixie
-            label: Debian
+            label: Debian 13
           - platform: centos-stream-10
-            label: RHEL
+            label: Centos 10
+          - platform: fedora-44
+            label: Fedora 44
     name: Test zarethrex.openmodelica (${{ matrix.system.label }})
     steps:
       - name: Checkout Repository

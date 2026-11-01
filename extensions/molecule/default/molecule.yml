@@ -10,6 +10,10 @@ platforms:
     groups:
       - openmodelica_nodes
     image: debian:trixie
+  - name: fedora-44
+    groups:
+      - openmodelica_nodes
+    image: fedora:44
 provisioner:
   name: ansible
   inventory:

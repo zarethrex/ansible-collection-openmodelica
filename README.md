@@ -30,7 +30,7 @@ The `openmodelica_package` module shells out to the `omc` binary, so it must be 
 
 | Distribution | Tested |
 |--------------|--------|
-| Fedora | — |
+| Fedora | Fedora 44|
 | RHEL / CentOS Stream / AlmaLinux / Rocky Linux | CentOS Stream 10 |
 | Debian | Debian Trixie |
 
