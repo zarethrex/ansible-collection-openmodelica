@@ -2,6 +2,7 @@
 - name: Test OpenModelica Install
   hosts: openmodelica_nodes
   become: true
+  gather_facts: false
   roles:
     - zarethrex.openmodelica.openmodelica_install
   tasks:

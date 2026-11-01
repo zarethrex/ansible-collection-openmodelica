@@ -19,7 +19,7 @@ jobs:
       - name: Run Ansible Lint
         run: |
           uv venv
-          uv pip install -r requirements
+          uv pip install -r requirements.txt
           uv ansible-lint
   test_collection:
     runs-on: ubuntu-latest

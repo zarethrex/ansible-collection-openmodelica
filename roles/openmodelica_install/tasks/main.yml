@@ -1,5 +1,11 @@
 # SPDX-License-Identifier: GPLv3-or-later
 ---
+- name: Ensure Required Facts
+  ansible.builtin.setup:
+    filter:
+      - ansible_os_family
+      - ansible_distribution
+      - ansible_distribution_major_version
 - name: Run OpenModelica Installation
   ansible.builtin.include_tasks:
     file: "{{ ansible_facts.os_family | lower }}.yml"
