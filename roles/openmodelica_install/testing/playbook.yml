@@ -9,4 +9,4 @@
       - name: Modelica
         version: "4.0.0"
   roles:
-    - zarethrex.openmodelica
+    - zarethrex.openmodelica.openmodelica_install
