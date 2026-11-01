@@ -36,14 +36,12 @@
         state: present
         install_recommends: false
         update_cache: true
-      register: install_omc
     - name: Install OpenModelica
       when: openmodelica_install_graphical_clients
       ansible.builtin.apt:
         name: openmodelica
         state: present
         update_cache: true
-      register: install_om_full
     - name: Install C++ Runtime
       ansible.builtin.apt:
         name: libomccpp

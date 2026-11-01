@@ -9,6 +9,12 @@ authors:
   - Kristian Zarebski
 license:
   - GPL-3.0-or-later
+tags:
+  - openmodelica
+  - modelica
+  - simulation
+  - linux
+  - tools
 build_ignore:
   - .venv
   - venv

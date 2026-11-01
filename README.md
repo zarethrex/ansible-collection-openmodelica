@@ -199,7 +199,7 @@ package manager or modifying the library directory.
 
 ## Limitations
 
-- **Linux and macOS only.** The module resolves the library directory as
+- **RHEL and Debian based Linux only.** The module resolves the library directory as
   `~/.openmodelica/libraries`. On Windows, OpenModelica uses
   `%AppData%\.openmodelica\libraries`, which is not currently handled.
 - **No dependency-aware removal.** Removing a library deletes its directory. The package manager

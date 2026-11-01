@@ -39,4 +39,3 @@
     name: openmodelica-nightly
     state: present
     disable_gpg_check: true
-  register: install_om_full
