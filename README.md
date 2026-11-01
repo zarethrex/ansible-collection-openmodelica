@@ -212,10 +212,10 @@ package manager or modifying the library directory.
 
 ## Testing
 
-The collection is tested with Molecule. Scenarios live under `extensions/molecule/`.
+The collection is tested with Molecule using the Podman driver. Scenarios live under `extensions/molecule/`.
 
 ```bash
-pip install molecule molecule-plugins[docker,podman] ansible-lint yamllint
+pip install molecule molecule-plugins[podman] ansible-lint yamllint
 molecule test
 ```
 
