@@ -24,7 +24,7 @@ manager to install and remove Modelica libraries.
 - **Network access** from the managed node to `build.openmodelica.org` and to the OpenModelica
   package index used by `updatePackageIndex()`
 
-The `package` module shells out to the `omc` binary, so it must be present on the target. Therefore it is recommended that the `install` role first.
+The `openmodelica_package` module shells out to the `omc` binary, so it must be present on the target. Therefore it is recommended that the `openmodelica_install` role first.
 
 ## Supported platforms
 
@@ -61,7 +61,7 @@ collections:
     version: ">=0.1.0"
 ```
 
-## Role: `zarethrex.openmodelica.install`
+## Role: `zarethrex.openmodelica.openmodelica_install`
 
 Adds the OpenModelica repository for the detected distribution and installs the OpenModelica
 toolchain from it. The role is intended to run with elevated privileges.
@@ -84,7 +84,7 @@ Further internal variables are defined in the role's `defaults/main.yml`.
   become: true
 
   roles:
-    - role: zarethrex.openmodelica.install
+    - role: zarethrex.openmodelica.openmodelica_install
       openmodelica_install_graphical_clients: true
       openmodelica_install_cpp_runtime: false
 ```
@@ -93,11 +93,11 @@ For a headless build or CI runner, disable the GUI:
 
 ```yaml
   roles:
-    - role: zarethrex.openmodelica.install
+    - role: zarethrex.openmodelica.openmodelica_install
       openmodelica_install_graphical_clients: false
 ```
 
-## Module: `zarethrex.openmodelica.package`
+## Module: `zarethrex.openmodelica.openmodelica_package`
 
 Installs Modelica libraries via the OpenModelica package manager, removes them by inspecting `$HOME/.openmodelica/libraries`. The module
 refreshes the package index, calls `installPackage()`, and verifies the result against the
@@ -118,7 +118,7 @@ Versions are specified inline on the library name:
 
 ```yaml
 - name: Install a specific version
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Buildings==14.0.0
 ```
 
@@ -150,27 +150,27 @@ package manager or modifying the library directory.
 
 ```yaml
 - name: Install the Modelica Standard Library
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Modelica
 
 - name: Install a pinned version
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Buildings==14.0.0
 
 - name: Install several libraries in one task
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name:
       - Modelica
       - Buildings==14.0.0
     state: present
 
 - name: Remove a library
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Buildings
     state: absent
 
 - name: Dry run
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Buildings
   check_mode: true
 ```
@@ -190,7 +190,7 @@ package manager or modifying the library directory.
 
   tasks:
     - name: Install Modelica libraries
-      zarethrex.openmodelica.package:
+      zarethrex.openmodelica.openmodelica_package:
         name:
           - Modelica
           - Buildings==14.0.0
