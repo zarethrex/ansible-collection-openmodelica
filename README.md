@@ -19,24 +19,21 @@ manager to install and remove Modelica libraries.
 ## Requirements
 
 - **ansible-core**: `>=2.21.0` or later
-- **Target OS**: Fedora or an Enterprise Linux distribution (RHEL, CentOS Stream, AlmaLinux, Rocky Linux)
+- **Target OS**: Debian and derivatives, Fedora or an Enterprise Linux distribution (RHEL, CentOS Stream, AlmaLinux, Rocky Linux).
 - **Python**: Python 3 on the managed node (the module executes remotely)
 - **Network access** from the managed node to `build.openmodelica.org` and to the OpenModelica
   package index used by `updatePackageIndex()`
 
-The module shells out to the `omc` binary, so it must be present on the target. In practice this
-means running the `install` role first.
+The `package` module shells out to the `omc` binary, so it must be present on the target. Therefore it is recommended that the `install` role first.
 
 ## Supported platforms
 
-| Distribution | Repository channel | Tested |
-|--------------|--------------------|--------|
-| Fedora | `fc<major_version>` | — |
-| RHEL / CentOS Stream / AlmaLinux / Rocky Linux | `el<major_version>` | CentOS Stream 10 |
+| Distribution | Tested |
+|--------------|--------|
+| Fedora | — |
+| RHEL / CentOS Stream / AlmaLinux / Rocky Linux | CentOS Stream 10 |
+| Debian | Debian Trixie |
 
-The repository label is derived from the target's facts: `fc` plus
-`ansible_facts.distribution_major_version` on Fedora, `el` plus the same value on every other
-supported distribution.
 
 ## Installation
 
@@ -69,7 +66,7 @@ collections:
 Adds the OpenModelica repository for the detected distribution and installs the OpenModelica
 toolchain from it. The role is intended to run with elevated privileges.
 
-### Variables
+### Variables (Debian only)
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -102,7 +99,7 @@ For a headless build or CI runner, disable the GUI:
 
 ## Module: `zarethrex.openmodelica.package`
 
-Installs or removes Modelica libraries by driving the OpenModelica package manager. The module
+Installs Modelica libraries via the OpenModelica package manager, removes them by inspecting `$HOME/.openmodelica/libraries`. The module
 refreshes the package index, calls `installPackage()`, and verifies the result against the
 contents of the OpenModelica library directory. Dependency resolution is delegated to the
 package manager, so installing a library also brings in its declared dependencies.
@@ -208,14 +205,13 @@ package manager or modifying the library directory.
 - **No dependency-aware removal.** Removing a library deletes its directory. The package manager
   performs no reverse-dependency check, so removing a library that others declare in their `uses`
   annotations will cause load failures later.
-- **The `version` parameter is not yet wired up.** Use the `name: <library>==<version>` form.
 
 ## Testing
 
 The collection is tested with Molecule using the Podman driver. Scenarios live under `extensions/molecule/`.
 
 ```bash
-pip install molecule molecule-plugins[podman] ansible-lint yamllint
+pip install molecule molecule-plugins[podman]
 molecule test
 ```
 
