@@ -3,8 +3,28 @@ namespace: zarethrex
 name: openmodelica
 readme: README.md
 description: Install and manage OpenModelica
+repository: https://github.com/zarethrex/ansible-collection-openmodelica
 version: 0.1.0
 authors:
   - Kristian Zarebski
 license:
   - GPL-3.0-or-later
+build_ignore:
+  - .venv
+  - venv
+  - .tox
+  - .git
+  - .github
+  - .cache
+  - .envrc
+  - .gitignore
+  - .ruff_cache
+  - extensions
+  - "*.pyc"
+  - ".*"
+  - __pycache__
+  - .pytest_cache
+  - .mypy_cache
+  - .vault-password*
+  - "*.log"
+  - .DS_Store

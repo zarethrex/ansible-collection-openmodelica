@@ -27,7 +27,7 @@ from ansible_collections.zarethrex.openmodelica.plugins.module_utils.omc import 
 )
 
 DOCUMENTATION = r"""
-module: package
+module: openmodelica_package
 short_description: Install and remove Modelica libraries
 description:
   - Installs or removes Modelica libraries via the OpenModelica package manager.
@@ -68,21 +68,19 @@ options:
 seealso:
   - module: ansible.builtin.package
     description: Generic package module for cross-platform package management.
-  - module: ansible.builtin.yum
-    description: Package management for RPM-based distributions.
 """
 
 EXAMPLES = r"""
 - name: Install the Modelica Standard Library
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Modelica
 
 - name: Install a specific version
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Buildings==14.0.0
 
 - name: Install several libraries at once
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name:
       - Modelica
       - Buildings
@@ -95,7 +93,7 @@ EXAMPLES = r"""
     state: absent
 
 - name: Dry run without making changes
-  zarethrex.openmodelica.package:
+  zarethrex.openmodelica.openmodelica_package:
     name: Buildings
   check_mode: true
 
@@ -106,7 +104,7 @@ EXAMPLES = r"""
     - role: zarethrex.openmodelica.install
   tasks:
     - name: Install modelica libraries
-      zarethrex.openmodelica.package:
+      zarethrex.openmodelica.openmodelica_package:
         name:
           - Modelica
           - Buildings==14.0.0

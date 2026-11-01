@@ -11,13 +11,13 @@
     update_cache: true
 - name: Retrieve OpenModelica GPG Key
   ansible.builtin.get_url:
-    url: "{{ openmodelica_apt_key_url }}"
+    url: "{{ openmodelica_install_apt_key_url }}"
     dest: /tmp/openmodelica.asc
     mode: "0644"
 - name: Write Key to System
   ansible.builtin.command:
-    cmd: "gpg --dearmor -o {{ openmodelica_gpg_key_file }} /tmp/openmodelica.asc"
-    creates: "{{ openmodelica_gpg_key_file }}"
+    cmd: "gpg --dearmor -o {{ openmodelica_install_gpg_key_file }} /tmp/openmodelica.asc"
+    creates: "{{ openmodelica_install_gpg_key_file }}"
 - name: Add OpenModelica Repository
   ansible.builtin.deb822_repository:
     name: openmodelica

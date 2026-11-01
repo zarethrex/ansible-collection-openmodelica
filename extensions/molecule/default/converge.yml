@@ -3,16 +3,16 @@
   hosts: openmodelica_nodes
   become: true
   roles:
-    - zarethrex.openmodelica.install
+    - zarethrex.openmodelica.openmodelica_install
   tasks:
     - name: Install Modelica Standard Library
-      zarethrex.openmodelica.package:
+      zarethrex.openmodelica.openmodelica_package:
         name: Modelica
     - name: Install Buildings Library
-      zarethrex.openmodelica.package:
+      zarethrex.openmodelica.openmodelica_package:
         name: Buildings==14.0.0
         state: present
     - name: Uninstall HanserModelica
-      zarethrex.openmodelica.package:
+      zarethrex.openmodelica.openmodelica_package:
         name: HanserModelica
         state: absent

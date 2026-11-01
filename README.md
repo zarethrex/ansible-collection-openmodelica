@@ -13,8 +13,8 @@ manager to install and remove Modelica libraries.
 
 | Type | Name | Description |
 |------|------|-------------|
-| Role | `zarethrex.openmodelica.install` | Configures the OSMC repository and installs OpenModelica |
-| Module | `zarethrex.openmodelica.package` | Installs and removes Modelica libraries via the OpenModelica package manager |
+| Role | `zarethrex.openmodelica.openmodelica_install` | Configures the OSMC repository and installs OpenModelica |
+| Module | `zarethrex.openmodelica.openmodelica_package` | Installs and removes Modelica libraries via the OpenModelica package manager |
 
 ## Requirements
 
@@ -184,7 +184,7 @@ package manager or modifying the library directory.
   become: true
 
   roles:
-    - role: zarethrex.openmodelica.install
+    - role: zarethrex.openmodelica.openmodelica_install
       openmodelica_install_graphical_clients: true
       openmodelica_install_cpp_runtime: false
 

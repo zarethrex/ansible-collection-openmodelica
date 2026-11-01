@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: GPLv3-or-later
+---
+openmodelica_install_gpg_key_file: /usr/share/keyrings/openmodelica-keyring.gpg
+openmodelica_install_repo_url: https://build.openmodelica.org/apt
+openmodelica_install_apt_key_url: https://build.openmodelica.org/apt/openmodelica.asc
+openmodelica_install_rpm_key_url: https://build.openmodelica.org/rpm/openmodelica.asc
